@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+//importtant file  https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch-prisma-migrate-typescript-postgres
+// npm install @prisma/cli  @prisma/client --save-dev
+// npx prisma
+// npx prisma init
+// npx prisma migrate save --name init --experimental
+// npx prisma migrate up --experimental
+// npx prisma generate
+// npx prisma studio
+
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Post {
+
+  id        Int     @id @default(autoincrement())
+  title     String
+  name     String
+  content   String?
+  published Boolean @default(false)
+  author    User?   @relation(fields: [authorId], references: [id])
+  authorId  Int?
+
+}
+
+model User {
+
+  id    Int     @id @default(autoincrement())
+  email String  @unique
+  name  String?
+  posts Post[]
+
+}
+
+model Users {
+
+    id        Int     @id @default(autoincrement())
+    name      String
+    email     String
+    password  String
+
+
+}
+model Tweets {
+
+    id        Int     @id @default(autoincrement())
+    text      String
+    user_id     String
+
+}
+
+model Followers {
+  
+    id        Int     @id @default(autoincrement())
+    follower_id      String
+    following_id     String
+
+}
+
+model Comments {
+
+    id        Int     @id @default(autoincrement())
+    name      String
+    email     String
+    password  String
+
+}
+
+model Likes {
+
+
+}
